@@ -4,6 +4,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Npgsql;
+using ReportService.Repositories;
+using ReportService.Repositories.Interfaces;
+using ReportService.Services;
+using ReportService.Services.Interfaces;
 
 namespace ReportService
 {
@@ -25,6 +29,12 @@ namespace ReportService
                 var connectionString = Configuration.GetConnectionString("Default");
                 return new NpgsqlConnection(connectionString);
             });
+
+            services.AddTransient<IDepartamentsRepository, DepartamentsRepository>();
+            services.AddTransient<IEmployeesRepository, EmployeesRepository>();
+
+            services.AddTransient<IReportGetterService, ReportGetterService>();
+            services.AddTransient<IReportBuilderService, ReportBuilderService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
