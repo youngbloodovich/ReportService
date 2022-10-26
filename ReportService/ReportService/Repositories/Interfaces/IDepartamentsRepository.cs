@@ -1,4 +1,4 @@
-﻿using ReportService.Domain;
+﻿using ReportService.Repositories.Entities;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

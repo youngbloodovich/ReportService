@@ -38,8 +38,8 @@ namespace ReportService
             services.AddTransient<IDepartamentsRepository, DepartamentsRepository>();
             services.AddTransient<IEmployeesRepository, EmployeesRepository>();
 
-            services.AddTransient<IReportGetterService, ReportGetterService>();
             services.AddTransient<IReportBuilderService, ReportBuilderService>();
+            services.AddTransient<IReportFormatterService, ReportFormatterService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

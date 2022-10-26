@@ -1,4 +1,4 @@
-﻿namespace ReportService.Domain
+﻿namespace ReportService.Repositories.Entities
 {
     public class Employee
     {

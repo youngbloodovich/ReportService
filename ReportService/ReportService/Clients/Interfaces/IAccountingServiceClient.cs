@@ -4,6 +4,6 @@ namespace ReportService.Clients.Interfaces
 {
     public interface IAccountingServiceClient
     {
-        Task<int> GetSalary(string inn, string code);
+        Task<int> GetSalary(string code, int year, int month);
     }
 }

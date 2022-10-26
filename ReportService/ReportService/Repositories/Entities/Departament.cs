@@ -1,4 +1,4 @@
-﻿namespace ReportService.Domain
+﻿namespace ReportService.Repositories.Entities
 {
     public class Departament
     {
@@ -6,6 +6,6 @@
 
         public string Name { get; set; }
 
-        public bool Active { get; set; }
+        public bool IsActive { get; set; }
     }
 }

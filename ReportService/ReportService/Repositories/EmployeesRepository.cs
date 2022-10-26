@@ -1,5 +1,5 @@
 ﻿using Dapper;
-using ReportService.Domain;
+using ReportService.Repositories.Entities;
 using ReportService.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -21,7 +21,7 @@ namespace ReportService.Repositories
         {
             _dbConnection.Open();
 
-            var sqlQuery = "SELECT name, inn, departmentid from emps";
+            var sqlQuery = "SELECT name as Name, inn as Inn, departmentid as DepartmentId from emps";
             var employees = await _dbConnection.QueryAsync<Employee>(sqlQuery);
 
             _dbConnection.Close();

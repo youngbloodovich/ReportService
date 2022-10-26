@@ -21,11 +21,11 @@ namespace ReportService.Clients
             _endpointUrl = configuration.GetSection("AccountingService:EndpointUrl").Value;
         }
 
-        public async Task<int> GetSalary(string inn, string code)
+        public async Task<int> GetSalary(string code, int year, int month)
         {
-            var uri = new Uri($"{_baseUrl}/{_endpointUrl}/{inn}");
+            var uri = new Uri($"{_baseUrl}/{_endpointUrl}/{code}");
 
-            var json = JsonConvert.SerializeObject(new { code });
+            var json = JsonConvert.SerializeObject(new { year, month });
             var content = new StringContent(json, Encoding.UTF8, "application/json");
 
             var response = await _client.PostAsync(uri, content);
