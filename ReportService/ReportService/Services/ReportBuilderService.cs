@@ -15,6 +15,7 @@ namespace ReportService.Services
 
         public string Build()
         {
+            throw new NotImplementedException();
         }
     }
 }

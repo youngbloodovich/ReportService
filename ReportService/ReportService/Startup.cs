@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Npgsql;
+using ReportService.Clients;
+using ReportService.Clients.Interfaces;
 using ReportService.Repositories;
 using ReportService.Repositories.Interfaces;
 using ReportService.Services;
@@ -24,11 +26,14 @@ namespace ReportService
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            
+
             services.AddTransient<IDbConnection, NpgsqlConnection>((sp) => {
                 var connectionString = Configuration.GetConnectionString("Default");
                 return new NpgsqlConnection(connectionString);
             });
+
+            services.AddTransient<IStaffServiceClient, StaffServiceClient>();
+            services.AddTransient<IAccountingServiceClient, AccountingServiceClient>();
 
             services.AddTransient<IDepartamentsRepository, DepartamentsRepository>();
             services.AddTransient<IEmployeesRepository, EmployeesRepository>();

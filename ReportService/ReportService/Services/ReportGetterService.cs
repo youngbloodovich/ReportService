@@ -1,8 +1,10 @@
-﻿using ReportService.Domain;
+﻿using ReportService.Clients.Interfaces;
+using ReportService.Domain;
 using ReportService.Repositories.Interfaces;
 using ReportService.Services.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace ReportService.Services
@@ -11,15 +13,21 @@ namespace ReportService.Services
     {
         private readonly IDepartamentsRepository _departamentsRepository;
         private readonly IEmployeesRepository _employeesRepository;
+        private readonly IStaffServiceClient _staffServiceClient;
+        private readonly IAccountingServiceClient _accountingServiceClient;
         private readonly IReportBuilderService _reportBuilderService;
 
         public ReportGetterService(
             IDepartamentsRepository departamentsRepository, 
             IEmployeesRepository employeesRepository,
+            IStaffServiceClient staffServiceClient,
+            IAccountingServiceClient accountingServiceClient,
             IReportBuilderService reportBuilderService)
         {
             _departamentsRepository = departamentsRepository ?? throw new ArgumentNullException(nameof(departamentsRepository));
             _employeesRepository = employeesRepository ?? throw new ArgumentNullException(nameof(employeesRepository));
+            _staffServiceClient = staffServiceClient ?? throw new ArgumentNullException(nameof(staffServiceClient));
+            _accountingServiceClient = accountingServiceClient ?? throw new ArgumentNullException(nameof(accountingServiceClient));
             _reportBuilderService = reportBuilderService ?? throw new ArgumentNullException(nameof(reportBuilderService));
         }
 
@@ -28,7 +36,7 @@ namespace ReportService.Services
             var departaments = await _departamentsRepository.ReadAll();
             var employees = await _employeesRepository.ReadAll();
 
-            throw new System.NotImplementedException();
+            return _reportBuilderService.Build();
         }
     }
 }
