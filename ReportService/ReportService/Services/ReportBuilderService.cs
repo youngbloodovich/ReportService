@@ -60,14 +60,14 @@ namespace ReportService.Services
                     var employee = group.Employees[j];
                     employeeReports[j] = new EmployeeReport
                     {
-                        EmployeeName = employee.Name,
+                        Name = employee.Name,
                         Salary = await GetSalary(employee, year, month)
                     };
                 }
 
                 var departamentReport = new DepartamentReport
                 {
-                    DepartamentName = group.DepartamentName,
+                    Name = group.DepartamentName,
                     EmployeeReports = employeeReports
                 };
             }

@@ -1,21 +1,45 @@
 ﻿using ReportService.Domain;
+using ReportService.Helpers;
 using ReportService.Repositories.Interfaces;
 using ReportService.Services.Interfaces;
 using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+using System.Text;
 
 namespace ReportService.Services
 {
     public class ReportFormatterService : IReportFormatterService
     {
-        public ReportFormatterService()
-        {
-        }
+        private const string Separator = "---";
+
+        private readonly StringBuilder _result = new StringBuilder();
 
         public string Format(CompanyReport report)
         {
-            throw new NotImplementedException();
+            var monthName = MonthNameResolver.GetName(report.Year, report.Month);
+            _result.AppendLine($"{monthName} {report.Year}");
+            _result.AppendLine(Environment.NewLine);
+
+            foreach (var departament in report.DepartamentReports)
+            {
+                _result.AppendLine(Separator);
+                _result.AppendLine(departament.Name);
+                _result.AppendLine(Environment.NewLine);
+
+                foreach (var employee in departament.EmployeeReports)
+                {
+                    _result.AppendLine($"{employee.Name} {employee.Salary}р");
+                    _result.AppendLine(Environment.NewLine);
+                }
+
+                _result.AppendLine($"Всего по отделу {departament.Total}р");
+                _result.AppendLine(Environment.NewLine);
+            }
+            
+            _result.AppendLine(Separator);
+            _result.AppendLine(Environment.NewLine);
+            _result.AppendLine($"Всего по предприятию {report.Total}р");
+
+            return _result.ToString();
         }
     }
 }

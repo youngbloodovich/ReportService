@@ -4,7 +4,7 @@ namespace ReportService.Domain
 {
     public class DepartamentReport
     {
-        public string DepartamentName { get; set; }
+        public string Name { get; set; }
 
         public EmployeeReport[] EmployeeReports { get; set; }
 
