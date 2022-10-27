@@ -21,15 +21,15 @@ namespace ReportService.Clients
             _endpointUrl = configuration.GetSection("AccountingService:EndpointUrl").Value;
         }
 
-        public async Task<int> GetSalary(string code, int year, int month)
+        // Полагаю, тут надо попросить команду, которая разрабатывает сервис бухгалтрии, добавить параметры год и месяц.
+        // Иначе как бухгалтерия понимает - за какой период мы запрашиваем зарплату сотрудника?
+        // Так же смущает что использовался POST-запрос. Какой в этом смысл?
+        // Так же ошибочно использовался ИНН вместо кода сотрудника из кадровой службы.
+        public async Task<int> GetSalary(string code)
         {
             var uri = new Uri($"{_baseUrl}/{_endpointUrl}/{code}");
 
-            var json = JsonConvert.SerializeObject(new { year, month });
-            var content = new StringContent(json, Encoding.UTF8, "application/json");
-
-            var response = await _client.PostAsync(uri, content);
-            var salary = await response.Content.ReadAsStringAsync();
+            var salary = await _client.GetStringAsync(uri);
 
             return int.Parse(salary);
         }

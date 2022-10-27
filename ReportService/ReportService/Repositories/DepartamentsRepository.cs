@@ -21,7 +21,7 @@ namespace ReportService.Repositories
         {
             _dbConnection.Open();
 
-            var sqlQuery = "SELECT id as DepartmentId, name as Name, active is IsActive from deps";
+            var sqlQuery = "SELECT id as DepartmentId, name as Name, active as IsActive from deps";
             var departaments = await _dbConnection.QueryAsync<Departament>(sqlQuery);
 
             _dbConnection.Close();

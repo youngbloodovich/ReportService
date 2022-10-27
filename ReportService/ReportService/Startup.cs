@@ -40,6 +40,7 @@ namespace ReportService
 
             services.AddTransient<IReportBuilderService, ReportBuilderService>();
             services.AddTransient<IReportFormatterService, ReportFormatterService>();
+            services.AddTransient<IFileCacheService, FileCacheService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
