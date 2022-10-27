@@ -18,7 +18,7 @@ namespace ReportService.Helpers
         {
             if (monthNum <= 0 || monthNum > 12)
             {
-                throw new ArgumentOutOfRangeException(nameof(monthNum));
+                throw new ArgumentOutOfRangeException("Month number out of range");
             }
 
             return new DateTime(1, monthNum, 1).ToString("MMMM", CultureInfo.CurrentCulture);

@@ -26,19 +26,15 @@ namespace ReportServiceTests
         [Test]
         public void MonthNameResolver_GivenNegativeMonth_ThrowsArgumentOutOfRangeException()
         {
-            var month = -1;
-
             Assert.Throws<ArgumentOutOfRangeException>(
-                () => MonthNameResolver.GetName(month), nameof(month));
+                () => MonthNameResolver.GetName(-1), "Month number out of range");
         }
 
         [Test]
         public void MonthNameResolver_GiveMonthMoreThan12_ThrowsArgumentOutOfRangeException()
         {
-            var month = 13;
-
             Assert.Throws<ArgumentOutOfRangeException>(
-                () => MonthNameResolver.GetName(month), nameof(month));
+                () => MonthNameResolver.GetName(13), "Month number out of range");
         }
     }
 }

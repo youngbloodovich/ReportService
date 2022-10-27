@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using ReportService.Clients.Interfaces;
 using System;
@@ -13,12 +14,17 @@ namespace ReportService.Clients
         private readonly string _baseUrl;
         private readonly string _endpointUrl;
 
+        private readonly ILogger<AccountingServiceClient> _logger;
+
         private readonly HttpClient _client = new HttpClient();
 
-        public AccountingServiceClient(IConfiguration configuration)
+        public AccountingServiceClient(
+            IConfiguration configuration,
+            ILogger<AccountingServiceClient> logger)
         {
             _baseUrl = configuration.GetSection("AccountingService:BaseUrl").Value;
             _endpointUrl = configuration.GetSection("AccountingService:EndpointUrl").Value;
+            _logger = logger;
         }
 
         /// <inheritdoc/>
@@ -30,7 +36,17 @@ namespace ReportService.Clients
             // Так же ошибочно использовался ИНН вместо кода сотрудника из кадровой службы.
             var uri = new Uri($"{_baseUrl}/{_endpointUrl}/{code}");
 
-            var salary = await _client.GetStringAsync(uri);
+            string salary;
+            try
+            {
+                salary = await _client.GetStringAsync(uri);
+            }
+            catch (Exception ex)
+            {
+                var message = "Request error to accounting service";
+                _logger.LogError(ex, message);
+                throw new HttpRequestException(message, ex);
+            }
 
             return int.Parse(salary);
         }
