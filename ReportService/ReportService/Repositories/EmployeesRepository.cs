@@ -17,6 +17,7 @@ namespace ReportService.Repositories
             _dbConnection = dbConnection ?? throw new ArgumentNullException(nameof(dbConnection));
         }
 
+        /// <inheritdoc/>
         public async Task<IEnumerable<Employee>> ReadAll()
         {
             _dbConnection.Open();

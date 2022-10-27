@@ -13,9 +13,10 @@ namespace ReportService.Services
 
         private readonly StringBuilder _result = new StringBuilder();
 
+        /// <inheritdoc/>
         public string Format(CompanyReport report)
         {
-            var monthName = MonthNameResolver.GetName(report.Year, report.Month);
+            var monthName = MonthNameResolver.GetName(report.Month);
             _result.AppendLine($"{monthName} {report.Year}");
             _result.AppendLine(Environment.NewLine);
 

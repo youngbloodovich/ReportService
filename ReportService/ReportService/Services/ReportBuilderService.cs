@@ -30,6 +30,7 @@ namespace ReportService.Services
             _accountingServiceClient = accountingServiceClient ?? throw new ArgumentNullException(nameof(accountingServiceClient));
         }
 
+        /// <inheritdoc/>
         public async Task<CompanyReport> Build(int year, int month)
         {
             var employees = await _employeesRepository.ReadAll();

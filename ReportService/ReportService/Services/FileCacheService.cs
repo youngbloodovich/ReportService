@@ -14,11 +14,13 @@ namespace ReportService.Services
             _fileCachePath = configuration.GetSection("FileCachePath").Value;
         }
 
+        /// <inheritdoc/>
         public bool FileExists(string filename)
         {
             return File.Exists($"{_fileCachePath}\\{filename}");
         }
 
+        /// <inheritdoc/>
         public string Read(string filename)
         {
             if (!FileExists(filename))
@@ -29,6 +31,7 @@ namespace ReportService.Services
             return File.ReadAllText($"{_fileCachePath}\\{filename}");
         }
 
+        /// <inheritdoc/>
         public void Write(string filename, string content)
         {
             var fullFilePath = $"{_fileCachePath}\\{filename}";

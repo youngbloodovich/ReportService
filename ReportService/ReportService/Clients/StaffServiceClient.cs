@@ -19,6 +19,7 @@ namespace ReportService.Clients
             _endpointUrl = configuration.GetSection("StaffService:EndpointUrl").Value;
         }
 
+        /// <inheritdoc/>
         public async Task<string> GetCode(string inn)
         {
             var uri = new Uri($"{_baseUrl}/{_endpointUrl}/{inn}");
